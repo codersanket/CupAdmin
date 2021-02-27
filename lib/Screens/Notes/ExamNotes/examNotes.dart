@@ -14,7 +14,13 @@ class examNotes extends StatelessWidget {
     print(uniId);
     print(subjectId);
     return Scaffold(
-      appBar: AppBar(title: Text("Add Exam Notes")),
+      backgroundColor: Color(0xFFfcf3e8),
+      appBar: AppBar(
+          title: Text(
+        "Add Exam Notes",
+        style: TextStyle(color: Colors.white),
+      ),
+      iconTheme: IconThemeData(color: Colors.white),),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -25,6 +31,7 @@ class examNotes extends StatelessWidget {
                   )));
         },
         child: Icon(Icons.add),
+        backgroundColor: Color(0XFFecb063),
       ),
       body: Container(
           child: Column(
@@ -54,45 +61,49 @@ class examNotes extends StatelessWidget {
                   if (snap.data.docs.isEmpty) {
                     return Center(child: Text("Add A Notes"));
                   }
-                  return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 50,
-                          mainAxisSpacing: 50),
-                      itemCount: snap.data.docs.length,
-                      itemBuilder: (context, i) {
-                        return GestureDetector(
-                          onTap: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>pdfViewer(url:snap.data.docs[i]["file"])));
-                          },
-                           child:GridTile(
-                            header: Container(
-                              padding: EdgeInsets.only(right: 10, top: 5),
-                              alignment: Alignment.topRight,
-                              child: Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              ),
-                            ),
-                            footer: Container(
-                              height: 40,
-                              color: Colors.black.withOpacity(0.4),
-                              child: Center(
-                                  child: Text(
-                                snap.data.docs[i]["topic"],
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                            ),
-                            child: FadeInImage(
-                              image: NetworkImage(
-                                  "https://www.myesr.org/sites/default/files/media-icons/generic/application-pdf.png"),
-                              placeholder: NetworkImage(
-                                  "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"),
-                            ))
-                        );
-                      });
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 30,
+                            mainAxisSpacing: 50),
+                        itemCount: snap.data.docs.length,
+                        itemBuilder: (context, i) {
+                          return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => pdfViewer(
+                                        url: snap.data.docs[i]["file"])));
+                              },
+                              child: GridTile(
+                                  header: Container(
+                                    padding: EdgeInsets.only(right: 10, top: 5),
+                                    alignment: Alignment.topRight,
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  footer: Container(
+                                    height: 40,
+                                    color: Colors.black.withOpacity(0.4),
+                                    child: Center(
+                                        child: Text(
+                                      snap.data.docs[i]["topic"],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                  ),
+                                  child: FadeInImage(
+                                    image: NetworkImage(
+                                        "https://www.myesr.org/sites/default/files/media-icons/generic/application-pdf.png"),
+                                    placeholder: NetworkImage(
+                                        "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"),
+                                  )));
+                        }),
+                  );
                 }),
           )
         ],

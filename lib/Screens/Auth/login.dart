@@ -45,10 +45,15 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFfcf3e8),
       appBar: AppBar(
-        title: Text("Short Note"),
+        title: Text(
+          "Login",
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      drawer: Drawer(),
+      //drawer: Drawer(),
       key: _key,
       body: Form(
         child: Padding(
@@ -59,7 +64,8 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   controller: _emailController,
-                  decoration: InputDecoration(
+                  decoration: InputDecoration(  
+                    contentPadding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),                 
                       labelText: "Email",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -72,19 +78,24 @@ class _LoginState extends State<Login> {
                   obscureText: true,
                   controller: _passwordController,
                   decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
                       labelText: "Password",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                       )),
                 ),
               ),
+              SizedBox(
+              height: 30,
+            ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.08,
                 padding: const EdgeInsets.all(8.0),
                 child: MaterialButton(
-                  onPressed:isLoading?(){}:() => login(context),
-                  color: Colors.blue,
+                  height: 12,
+                  onPressed: isLoading ? () {} : () => login(context),
+                  color: Color(0XFFecb063),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   child: isLoading
@@ -94,7 +105,7 @@ class _LoginState extends State<Login> {
                         ))
                       : Text(
                           "Login",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white,fontSize: 17),
                         ),
                 ),
               ),
