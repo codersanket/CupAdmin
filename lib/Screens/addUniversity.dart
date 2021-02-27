@@ -35,9 +35,9 @@ class _addUniversityState extends State<addUniversity> {
         isLoading = false;
       });
       print("Sanket" + e.message);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.message),
-      ));
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text(e.message),
+      // ));
     }
   }
 
@@ -79,9 +79,10 @@ class _addUniversityState extends State<addUniversity> {
               child: MaterialButton(
                 onPressed: () {
                   if (controller.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Field is Empty"),
-                    ));
+                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      // content: Text("Field is Empty"),
+                    // )
+                    // );
                   } else {
                     add(context);
                   }

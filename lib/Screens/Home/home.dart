@@ -106,10 +106,10 @@ class home extends StatelessWidget {
                                   subject: Subsnapshot["id"],
                                 )));
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Complete All Fields"),
-                      duration: Duration(milliseconds: 500),
-                    ));
+                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    //   content: Text("Complete All Fields"),
+                    //   duration: Duration(milliseconds: 500),
+                    // ));
                   }
                 },
                color: Color(0XFFecb063),
@@ -157,23 +157,27 @@ class subjectSerach extends SearchDelegate<DocumentSnapshot> {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("Subjects")
-            .where("name", isEqualTo: query)
+            
             .snapshots(),
         builder: (context, snap) {
+          List<DocumentSnapshot> list;
           if (!snap.hasData) {
             return Center(child: CircularProgressIndicator());
           }
           if (snap.data.docs.isEmpty) {
             return Center(child: Text("No Subject Found"));
           }
+          if(snap.hasData){
+            list=snap.data.docs.where((element) => element.data()["name"].startsWith(query)).toList();
+          }
           return ListView.builder(
-            itemCount: snap.data.docs.length,
+            itemCount: list.length,
             itemBuilder: (context, i) {
               return ListTile(
                 onTap: () {
                   Navigator.pop(context, snap.data.docs[i]);
                 },
-                title: Text(snap.data.docs[i]["name"]),
+                title: Text(list[i].data()["name"]),
                 trailing: Icon(Icons.arrow_forward_ios),
               );
             },
@@ -186,23 +190,27 @@ class subjectSerach extends SearchDelegate<DocumentSnapshot> {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("Subjects")
-            .where("name", isLessThanOrEqualTo: query)
+           
             .snapshots(),
         builder: (context, snap) {
+            List<DocumentSnapshot> list;
           if (!snap.hasData) {
             return Center(child: CircularProgressIndicator());
           }
           if (snap.data.docs.isEmpty) {
             return Center(child: Text("No Subject Found"));
           }
+          if(snap.hasData){
+            list=snap.data.docs.where((element) => element.data()["name"].startsWith(query)).toList();
+          }
           return ListView.builder(
-            itemCount: snap.data.docs.length,
+            itemCount: list.length,
             itemBuilder: (context, i) {
               return ListTile(
                 onTap: () {
                   Navigator.pop(context, snap.data.docs[i]);
                 },
-                title: Text(snap.data.docs[i]["name"]),
+                title: Text(list[i].data()["name"]),
                 trailing: Icon(Icons.arrow_forward_ios),
               );
             },
@@ -239,23 +247,27 @@ class universitySearch extends SearchDelegate<DocumentSnapshot> {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("University")
-            .where("name", isLessThanOrEqualTo: query)
+            
             .snapshots(),
         builder: (context, snap) {
+            List<DocumentSnapshot> list;
           if (!snap.hasData) {
             return Center(child: CircularProgressIndicator());
           }
           if (snap.data.docs.isEmpty) {
             return Center(child: Text("No University Found"));
           }
+           if(snap.hasData){
+            list=snap.data.docs.where((element) => element.data()["name"].startsWith(query)).toList();
+          }
           return ListView.builder(
-            itemCount: snap.data.docs.length,
+            itemCount: list.length,
             itemBuilder: (context, i) {
               return ListTile(
                 onTap: () {
                   Navigator.pop(context, snap.data.docs[i]);
                 },
-                title: Text(snap.data.docs[i]["name"]),
+                title: Text(list[i].data()["name"]),
                 trailing: Icon(Icons.arrow_forward_ios),
               );
             },
@@ -265,26 +277,31 @@ class universitySearch extends SearchDelegate<DocumentSnapshot> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("University")
-            .where("name", isLessThanOrEqualTo: query)
+           
             .snapshots(),
         builder: (context, snap) {
+        List<DocumentSnapshot> list;
           if (!snap.hasData) {
             return Center(child: CircularProgressIndicator());
           }
           if (snap.data.docs.isEmpty) {
             return Center(child: Text("No University Found"));
           }
+            if(snap.hasData){
+            list=snap.data.docs.where((element) => element.data()["name"].startsWith(query)).toList();
+          }
           return ListView.builder(
-            itemCount: snap.data.docs.length,
+            itemCount: list.length,
             itemBuilder: (context, i) {
               return ListTile(
                 onTap: () {
                   Navigator.pop(context, snap.data.docs[i]);
                 },
-                title: Text(snap.data.docs[i]["name"]),
+                title: Text(list[i].data()["name"]),
                 trailing: Icon(Icons.arrow_forward_ios),
               );
             },

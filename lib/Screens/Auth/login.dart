@@ -37,8 +37,8 @@ class _LoginState extends State<Login> {
         isLoading = false;
       });
       print(e.message);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.message)));
+      // ScaffoldMessenger.of(context)
+      //     .showSnackBar(SnackBar(content: Text(e.message)));
     }
   }
 

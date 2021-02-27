@@ -54,7 +54,7 @@ class _addFileState extends State<addFile> {
           path='';
           pdfFile=File('');
           setState(() {});
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("File Uploaded Sucessfully"),));
+          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("File Uploaded Sucessfully"),));
           }
         );
         }

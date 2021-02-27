@@ -11,8 +11,7 @@ class examNotes extends StatelessWidget {
   const examNotes({Key key, this.uniId, this.subjectId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print(uniId);
-    print(subjectId);
+    
     return Scaffold(
       backgroundColor: Color(0xFFfcf3e8),
       appBar: AppBar(
