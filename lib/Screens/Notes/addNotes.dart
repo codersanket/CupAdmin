@@ -47,7 +47,10 @@ class addNotes extends StatelessWidget {
             child: OutlineButton(
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => shortNotes()));
+                    MaterialPageRoute(builder: (context) => shortNotes(
+                       uniId: university,
+                      subjectId: subject,
+                    )));
               },
               borderSide: BorderSide(color: Colors.black, width: 2),
               padding: EdgeInsets.symmetric(vertical: 10),

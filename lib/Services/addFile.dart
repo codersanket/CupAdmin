@@ -81,6 +81,20 @@ class _addFileState extends State<addFile> {
               
             ),
           ),
+                    Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              controller: topic,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16)
+                ),
+                labelText: "Topic"
+              ),
+              
+            ),
+          ),
+          
           path.length==0?Container():Container(
             padding: EdgeInsets.all(20),
             child: Text(path.split('/').last,textAlign: TextAlign.center,)),

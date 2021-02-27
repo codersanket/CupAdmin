@@ -79,9 +79,12 @@ class shortNotes extends StatelessWidget {
                                   header: Container(
                                     padding: EdgeInsets.only(right: 10, top: 5),
                                     alignment: Alignment.topRight,
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
+                                    child: GestureDetector(
+                                      onTap:()=> FirebaseFirestore.instance.collection("ShortNotes").doc(snap.data.docs[i].id).delete(),
+                                          child: Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                   footer: Container(

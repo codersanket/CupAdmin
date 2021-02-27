@@ -3,6 +3,7 @@ import 'package:cupadmin/Screens/Notes/addNotes.dart';
 import 'package:cupadmin/Screens/addUniversity.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../Admin/admin.dart';
 
 class home extends StatelessWidget {
   TextEditingController _university = TextEditingController();
@@ -24,25 +25,23 @@ class home extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              DrawerHeader(child: Container()),
-              ListTile(
-                title: Text("Add University"),
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => addUniversity()));
-                },
-                trailing: Icon(Icons.arrow_forward_ios),
+              Card(
+                              child: ListTile(
+                                onTap: ()async{
+                                  await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser.uid).get().then((value) {
+                                    if(value.data()["role"]=='admin'){
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AdminHome()));
+                                    }else{
+                                      Scaffold.of(context).showSnackBar(SnackBar(content: Text("You DOn't Have a Permission"),));
+                                    }
+                                  });
+                                },
+                  title:Text("Admin"),
+                  trailing:Icon(Icons.arrow_forward_ios)
+                ),
               ),
-              ListTile(
-                  title: Text("Sign Out"),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    FirebaseAuth.instance.signOut();
-                  })
-            ],
-          ),
-        ),
-      ),
+            ]
+      ))),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
