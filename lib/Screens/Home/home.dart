@@ -22,26 +22,39 @@ class home extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
       ),
       drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            children: [
-              Card(
-                              child: ListTile(
-                                onTap: ()async{
-                                  await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser.uid).get().then((value) {
-                                    if(value.data()["role"]=='admin'){
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AdminHome()));
-                                    }else{
-                                      Scaffold.of(context).showSnackBar(SnackBar(content: Text("You DOn't Have a Permission"),));
-                                    }
-                                  });
-                                },
-                  title:Text("Admin"),
-                  trailing:Icon(Icons.arrow_forward_ios)
-                ),
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: ClipRRect(child: Image.asset("assets/images/logo.png")),
+              decoration: BoxDecoration(
+                color: Color(0xFFe9a54d),
               ),
-            ]
-      ))),
+            ),
+            ListTile(
+              onTap: () async {
+                await FirebaseFirestore.instance
+                    .collection("Users")
+                    .doc(FirebaseAuth.instance.currentUser.uid)
+                    .get()
+                    .then((value) {
+                  if (value.data()["role"] == 'admin') {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => AdminHome()));
+                  } else {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text("You DOn't Have a Permission"),
+                    ));
+                  }
+                });
+              },
+              title: Text("Admin"),
+              leading: Icon(Icons.admin_panel_settings),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            Divider()
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -59,7 +72,8 @@ class home extends StatelessWidget {
                 controller: _university,
                 decoration: InputDecoration(
                     labelText: "University",
-                    contentPadding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0), 
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 10.0),
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -79,7 +93,8 @@ class home extends StatelessWidget {
                 readOnly: true,
                 decoration: InputDecoration(
                     labelText: "Subject",
-                    contentPadding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0), 
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 10.0),
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -111,7 +126,7 @@ class home extends StatelessWidget {
                     // ));
                   }
                 },
-               color: Color(0XFFecb063),
+                color: Color(0XFFecb063),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 child: Text(
@@ -154,10 +169,7 @@ class subjectSerach extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection("Subjects")
-            
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection("Subjects").snapshots(),
         builder: (context, snap) {
           List<DocumentSnapshot> list;
           if (!snap.hasData) {
@@ -166,8 +178,10 @@ class subjectSerach extends SearchDelegate<DocumentSnapshot> {
           if (snap.data.docs.isEmpty) {
             return Center(child: Text("No Subject Found"));
           }
-          if(snap.hasData){
-            list=snap.data.docs.where((element) => element.data()["name"].startsWith(query)).toList();
+          if (snap.hasData) {
+            list = snap.data.docs
+                .where((element) => element.data()["name"].startsWith(query))
+                .toList();
           }
           return ListView.builder(
             itemCount: list.length,
@@ -187,20 +201,19 @@ class subjectSerach extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection("Subjects")
-           
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection("Subjects").snapshots(),
         builder: (context, snap) {
-            List<DocumentSnapshot> list;
+          List<DocumentSnapshot> list;
           if (!snap.hasData) {
             return Center(child: CircularProgressIndicator());
           }
           if (snap.data.docs.isEmpty) {
             return Center(child: Text("No Subject Found"));
           }
-          if(snap.hasData){
-            list=snap.data.docs.where((element) => element.data()["name"].startsWith(query)).toList();
+          if (snap.hasData) {
+            list = snap.data.docs
+                .where((element) => element.data()["name"].startsWith(query))
+                .toList();
           }
           return ListView.builder(
             itemCount: list.length,
@@ -244,20 +257,19 @@ class universitySearch extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection("University")
-            
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection("University").snapshots(),
         builder: (context, snap) {
-            List<DocumentSnapshot> list;
+          List<DocumentSnapshot> list;
           if (!snap.hasData) {
             return Center(child: CircularProgressIndicator());
           }
           if (snap.data.docs.isEmpty) {
             return Center(child: Text("No University Found"));
           }
-           if(snap.hasData){
-            list=snap.data.docs.where((element) => element.data()["name"].startsWith(query)).toList();
+          if (snap.hasData) {
+            list = snap.data.docs
+                .where((element) => element.data()["name"].startsWith(query))
+                .toList();
           }
           return ListView.builder(
             itemCount: list.length,
@@ -276,22 +288,20 @@ class universitySearch extends SearchDelegate<DocumentSnapshot> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection("University")
-           
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection("University").snapshots(),
         builder: (context, snap) {
-        List<DocumentSnapshot> list;
+          List<DocumentSnapshot> list;
           if (!snap.hasData) {
             return Center(child: CircularProgressIndicator());
           }
           if (snap.data.docs.isEmpty) {
             return Center(child: Text("No University Found"));
           }
-            if(snap.hasData){
-            list=snap.data.docs.where((element) => element.data()["name"].startsWith(query)).toList();
+          if (snap.hasData) {
+            list = snap.data.docs
+                .where((element) => element.data()["name"].startsWith(query))
+                .toList();
           }
           return ListView.builder(
             itemCount: list.length,

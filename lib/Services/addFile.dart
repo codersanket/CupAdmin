@@ -63,9 +63,11 @@ class _addFileState extends State<addFile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFfcf3e8),
       appBar: AppBar(
-        title:Text("Upload File"),
-      ),
+        title:Text("Upload File",style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),),
       body: Column(
         children:[ 
           Padding(
@@ -73,36 +75,56 @@ class _addFileState extends State<addFile> {
             child: TextField(
               controller: topic,
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16)
-                ),
-                labelText: "Topic"
+                labelText: "Topic",
+                contentPadding: new EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 10.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                  ),
               ),
               
             ),
           ),
+            SizedBox(
+                height: 10,
+              ),
                     Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
               controller: topic,
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16)
-                ),
-                labelText: "Topic"
+                labelText: "Topic",
+                contentPadding: new EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 10.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                  ),
               ),
               
             ),
           ),
-          
+            SizedBox(
+                height: 10,
+              ),
           path.length==0?Container():Container(
             padding: EdgeInsets.all(20),
             child: Text(path.split('/').last,textAlign: TextAlign.center,)),
           MaterialButton(
+             padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
             shape: RoundedRectangleBorder(
               borderRadius:BorderRadius.circular(16)
             ),
-            color: Colors.blue,
+            color: Color(0XFFecb063),
           onPressed: (){
             selecteFile();
           },
@@ -113,13 +135,13 @@ class _addFileState extends State<addFile> {
         ),
         SizedBox(height: 150,),
         Container(
-          height: MediaQuery.of(context).size.height*0.08,
+          height: MediaQuery.of(context).size.height*0.06,
           width:MediaQuery.of(context).size.width*0.7 ,
           child: MaterialButton(
             shape: RoundedRectangleBorder(
               borderRadius:BorderRadius.circular(16)
             ),
-            color: Colors.blue,
+            color: Color(0XFFecb063),
               onPressed: (){
                 addToStorage(context);
               },
