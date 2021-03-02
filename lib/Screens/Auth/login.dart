@@ -64,12 +64,19 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   controller: _emailController,
-                  decoration: InputDecoration(  
-                    contentPadding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),                 
-                      labelText: "Email",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      )),
+                  decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 10.0),
+                    labelText: "Email",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                  ),
                 ),
               ),
               Padding(
@@ -78,16 +85,23 @@ class _LoginState extends State<Login> {
                   obscureText: true,
                   controller: _passwordController,
                   decoration: InputDecoration(
-                    contentPadding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
-                      labelText: "Password",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      )),
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 10.0),
+                    labelText: "Password",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(
-              height: 30,
-            ),
+                height: 30,
+              ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: MediaQuery.of(context).size.height * 0.08,
@@ -105,7 +119,7 @@ class _LoginState extends State<Login> {
                         ))
                       : Text(
                           "Login",
-                          style: TextStyle(color: Colors.white,fontSize: 17),
+                          style: TextStyle(color: Colors.white, fontSize: 17),
                         ),
                 ),
               ),

@@ -51,7 +51,14 @@ class home extends StatelessWidget {
               leading: Icon(Icons.admin_panel_settings),
               trailing: Icon(Icons.arrow_forward),
             ),
-            Divider()
+            ListTile(
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+              },
+              title: Text("Sign out"),
+              leading: Icon(Icons.logout),
+              trailing: Icon(Icons.arrow_forward),
+            ),
           ],
         ),
       ),
@@ -71,13 +78,19 @@ class home extends StatelessWidget {
                 readOnly: true,
                 controller: _university,
                 decoration: InputDecoration(
-                    labelText: "University",
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 10.0),
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
+                  labelText: "University",
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 10.0),
+                  prefixIcon: Icon(Icons.search),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -92,13 +105,19 @@ class home extends StatelessWidget {
                 controller: _subject,
                 readOnly: true,
                 decoration: InputDecoration(
-                    labelText: "Subject",
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 10.0),
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
+                  labelText: "Subject",
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 10.0),
+                  prefixIcon: Icon(Icons.search),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                  ),
+                ),
               ),
             ),
             SizedBox(
@@ -106,7 +125,7 @@ class home extends StatelessWidget {
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.7,
-              height: MediaQuery.of(context).size.height * 0.1,
+              height: MediaQuery.of(context).size.height * 0.08,
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
