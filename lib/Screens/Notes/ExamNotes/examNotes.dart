@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 class examNotes extends StatelessWidget {
   final String uniId;
   final String subjectId;
+  final String semId;
+  final String courseId;
 
-  const examNotes({Key key, this.uniId, this.subjectId}) : super(key: key);
+  const examNotes({Key key, this.uniId, this.subjectId,this.courseId,this.semId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     

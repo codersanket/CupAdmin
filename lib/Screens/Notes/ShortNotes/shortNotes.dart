@@ -7,8 +7,10 @@ class shortNotes extends StatelessWidget {
  
   final String uniId;
   final String subjectId;
+  final String semId;
+  final String courseId;
 
-  const shortNotes({Key key, this.uniId, this.subjectId}) : super(key: key);
+  const shortNotes({Key key, this.uniId, this.subjectId,this.courseId,this.semId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
