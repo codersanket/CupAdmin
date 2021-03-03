@@ -7,7 +7,7 @@ class createUser extends StatelessWidget {
     try{
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password).then((value) => FirebaseFirestore.instance.collection("Users").doc(value.user.uid).set({
       "role":"Teacher"
-    }));
+    }).then((value) =>  _key.currentState.showSnackBar(SnackBar(content: Text("Created User"),))));
     }on FirebaseAuthException catch(e){
       _key.currentState.showSnackBar(SnackBar(content: Text(e.message),));
     }
