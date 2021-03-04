@@ -1,42 +1,55 @@
-import 'package:cupadmin/Screens/Admin/add.dart';
 import 'package:cupadmin/Screens/Admin/createUser.dart';
 import 'package:flutter/material.dart';
+import 'package:cupadmin/Screens/Admin/addButtons.dart';
+
 class AdminHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFfcf3e8),
       body: Container(
-        child: Column(
-          children:[
-            RaisedButton(
-              onPressed: (){
-                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>add(label:"University")));
-              },
-              child: Text("Add University"),
-            ),
-              RaisedButton(
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>add(label:"Semester")));
-              },
-              child: Text("Add Semester"),
-            ), RaisedButton(
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>add(label:"Subjects")));
-              },
-              child: Text("Add Subject"),
-            ), RaisedButton(
-              onPressed: (){
-                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>add(label:"Course")));
-              },
-              child: Text("Add Course"),
-            ),
-            RaisedButton(onPressed: (){
-             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>createUser()));
-            },child: Text("Creat Users"),)
-          ],
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              AddButtons("University", "Add University"),
+              SizedBox(
+                height: 10,
+              ),
+              AddButtons("Course", "Add Course"),
+              SizedBox(
+                height: 10,
+              ),
+              AddButtons("Semester", "Add Semester"),
+              SizedBox(
+                height: 10,
+              ),
+              AddButtons("Subjects", "Add Subjects"),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.07,
+                width: double.infinity,
+                child: RaisedButton(
+                  color: Color(0XFFecb063),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => createUser()));
+                  },
+                  child: Text(
+                    "Creat Users",
+                    style: TextStyle(color: Colors.white, fontSize: 17),
+                  ),
+                ),
+              )
+            ],
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+          ),
         ),
       ),
     );
