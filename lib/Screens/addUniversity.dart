@@ -64,11 +64,18 @@ class _addUniversityState extends State<addUniversity> {
                 child: TextFormField(
                   controller: controller,
                   decoration: InputDecoration(
-                    contentPadding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
-                      labelText: "University Name",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      )),
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 10.0),
+                    labelText: "University Name",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -80,7 +87,7 @@ class _addUniversityState extends State<addUniversity> {
                 onPressed: () {
                   if (controller.text.isEmpty) {
                     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      // content: Text("Field is Empty"),
+                    // content: Text("Field is Empty"),
                     // )
                     // );
                   } else {

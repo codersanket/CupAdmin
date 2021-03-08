@@ -41,7 +41,7 @@ class home extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => AdminHome()));
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text("You DOn't Have a Permission"),
+                      content: Text("You Don't Have a Permission"),
                     ));
                   }
                 });

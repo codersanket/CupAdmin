@@ -342,7 +342,15 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.8.0"
+=======
+<<<<<<< HEAD
+    version: "1.8.0"
+=======
+    version: "1.8.0-nullsafety.2"
+>>>>>>> b621dc2e8ef5e6de25b4eda6c51650ce5ef0512f
+>>>>>>> 96e3efda5ddd9878a30ab2e5f49400f98b4531c3
   stack_trace:
     dependency: transitive
     description:
