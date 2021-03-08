@@ -45,6 +45,7 @@ class addNotes extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
             child: OutlineButton(
+              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => shortNotes(
@@ -52,15 +53,15 @@ class addNotes extends StatelessWidget {
                       subjectId: subject,
                     )));
               },
-              borderSide: BorderSide(color: Colors.black, width: 2),
-              padding: EdgeInsets.symmetric(vertical: 10),
+              borderSide: BorderSide(color: Color(0xFFe9a54d), width: 2),
+              padding: EdgeInsets.symmetric(vertical: 14),
               child: Row(
                 children: [
                   Text(
                     "Short Notes",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16,color: Colors.grey),
                   ),
-                  Icon(Icons.add),
+                  Icon(Icons.add,color: Color(0xFFe9a54d),),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               ),
@@ -69,6 +70,7 @@ class addNotes extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
             child: OutlineButton(
+              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -79,15 +81,15 @@ class addNotes extends StatelessWidget {
                   ),
                 );
               },
-              borderSide: BorderSide(color: Colors.black, width: 2),
-              padding: EdgeInsets.symmetric(vertical: 10),
+              borderSide: BorderSide(color: Color(0xFFe9a54d), width: 2),
+              padding: EdgeInsets.symmetric(vertical: 14),
               child: Row(
                 children: [
                   Text(
                     "Exam Notes",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16,color: Colors.grey),
                   ),
-                  Icon(Icons.add),
+                  Icon(Icons.add,color: Color(0xFFe9a54d),),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               ),

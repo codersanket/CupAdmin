@@ -42,23 +42,25 @@ class home extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => AdminHome()));
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text("You DOn't Have a Permission"),
+                      content: Text("You Don't Have a Permission"),
                     ));
                   }
                 });
               },
               title: Text("Admin"),
               leading: Icon(Icons.admin_panel_settings),
-              trailing: Icon(Icons.arrow_forward),
+              trailing: Icon(Icons.arrow_forward_ios_sharp,size: 16.0,),
             ),
+            Divider(color: Colors.grey),
             ListTile(
               onTap: () {
                 FirebaseAuth.instance.signOut();
               },
               title: Text("Sign out"),
               leading: Icon(Icons.logout),
-              trailing: Icon(Icons.arrow_forward),
+              trailing: Icon(Icons.arrow_forward_ios_sharp,size: 16.0,),
             ),
+            Divider(color: Colors.grey),
           ],
         ),
       ),
