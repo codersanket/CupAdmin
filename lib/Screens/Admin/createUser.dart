@@ -2,7 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+
+
 class createUser extends StatelessWidget {
+
+  GlobalKey<ScaffoldState> _key = GlobalKey();
   user(email, password) async {
     try {
       await FirebaseAuth.instance
@@ -15,10 +19,11 @@ class createUser extends StatelessWidget {
       _key.currentState.showSnackBar(SnackBar(
         content: Text(e.message),
       ));
+
     }
   }
 
-  GlobalKey<ScaffoldState> _key = GlobalKey();
+  
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   @override

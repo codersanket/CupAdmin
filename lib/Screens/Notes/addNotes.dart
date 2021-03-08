@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 class addNotes extends StatelessWidget {
   final String subject;
   final String university;
+  final String semester;
+  final String course;
 
-  const addNotes({Key key, this.subject, this.university}) : super(key: key);
+  const addNotes({Key key, this.subject, this.university,this.course,this.semester}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print(subject);
-    print(university);
+
 
     return Scaffold(
       backgroundColor: Color(0xFFfcf3e8),
@@ -23,23 +24,23 @@ class addNotes extends StatelessWidget {
         ),
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            children: [
-              DrawerHeader(child: Container()),
-              ListTile(
-                title: Text("Add University"),
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => addUniversity()));
-                },
-                trailing: Icon(Icons.arrow_forward_ios),
-              ),
-            ],
-          ),
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: SafeArea(
+      //     child: Column(
+      //       children: [
+      //         DrawerHeader(child: Container()),
+      //         ListTile(
+      //           title: Text("Add University"),
+      //           onTap: () {
+      //             Navigator.of(context).push(
+      //                 MaterialPageRoute(builder: (context) => addUniversity()));
+      //           },
+      //           trailing: Icon(Icons.arrow_forward_ios),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: Column(
         children: [
           Padding(
@@ -51,6 +52,8 @@ class addNotes extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => shortNotes(
                        uniId: university,
                       subjectId: subject,
+                      semId:semester,
+                      courseId:course
                     )));
               },
               borderSide: BorderSide(color: Color(0xFFe9a54d), width: 2),
@@ -77,6 +80,8 @@ class addNotes extends StatelessWidget {
                     builder: (context) => examNotes(
                       uniId: university,
                       subjectId: subject,
+                      semId:semester,
+                      courseId:course
                     ),
                   ),
                 );
