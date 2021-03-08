@@ -9,7 +9,18 @@ class Wrapper  extends StatelessWidget {
     return StreamBuilder<User>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context,snap){
-          return !snap.hasData?Login():home();
+
+          if(snap.connectionState==ConnectionState.waiting){
+            return Scaffold(
+              backgroundColor: Color(0xFFfcf3e8),
+              body: Center(child:CircularProgressIndicator()));
+          }
+          return AnimatedSwitcher(
+            
+            duration: Duration(milliseconds:250),
+            switchInCurve: Curves.bounceIn,
+            switchOutCurve: Curves.bounceInOut,
+          child: !snap.hasData?Login():home());
         },
     );
   }

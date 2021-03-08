@@ -34,7 +34,7 @@ class _addUniversityState extends State<addUniversity> {
       setState(() {
         isLoading = false;
       });
-      print("Sanket" + e.message);
+      
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //   content: Text(e.message),
       // ));
@@ -100,7 +100,7 @@ class _addUniversityState extends State<addUniversity> {
                 child: isLoading
                     ? CircularProgressIndicator()
                     : Text(
-                        "Add University",
+                        "AddUniversity ",
                         style: TextStyle(color: Colors.white),
                       ),
               ),
