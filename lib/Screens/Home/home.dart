@@ -8,8 +8,8 @@ import '../Admin/admin.dart';
 class home extends StatelessWidget {
   TextEditingController _university = TextEditingController();
   TextEditingController _subject = TextEditingController();
-  TextEditingController _sem=TextEditingController();
-  TextEditingController _course=TextEditingController();
+  TextEditingController _sem = TextEditingController();
+  TextEditingController _course = TextEditingController();
   DocumentSnapshot Unisnapshot;
   DocumentSnapshot Subsnapshot;
   DocumentSnapshot CourseSnapShot;
@@ -26,10 +26,15 @@ class home extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
       ),
       drawer: Drawer(
-          child: SafeArea(
-              child: Column(children: [
-        Card(
-          child: ListTile(
+        child: ListView(
+          children: [
+             DrawerHeader(
+                child: Image(image: AssetImage("assets/images/logo.png")),
+                decoration: BoxDecoration(
+                  color: Color(0xFFe9a54d),
+                ),
+              ),
+            ListTile(
               onTap: () async {
                 await FirebaseFirestore.instance
                     .collection("Users")
@@ -46,10 +51,21 @@ class home extends StatelessWidget {
                   }
                 });
               },
+              leading: Icon(Icons.admin_panel_settings,size: 17,),
               title: Text("Admin"),
-              trailing: Icon(Icons.arrow_forward_ios)),
+              trailing: Icon(Icons.arrow_forward_ios,size: 17,)),
+              Divider(color: Colors.grey),
+              ListTile(
+              onTap: (){
+                FirebaseAuth.instance.signOut();
+              },
+              leading: Icon(Icons.logout,size: 17,),
+              title: Text("Sign out"),
+              trailing: Icon(Icons.arrow_forward_ios,size: 17,)),
+              Divider(color: Colors.grey),
+          ],
         ),
-      ]))),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -70,9 +86,14 @@ class home extends StatelessWidget {
                     contentPadding: new EdgeInsets.symmetric(
                         vertical: 12.0, horizontal: 10.0),
                     prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
+                     enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),),
               ),
             ),
             Padding(
@@ -91,12 +112,17 @@ class home extends StatelessWidget {
                     contentPadding: new EdgeInsets.symmetric(
                         vertical: 12.0, horizontal: 10.0),
                     prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),),
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 onTap: () async {
@@ -112,16 +138,21 @@ class home extends StatelessWidget {
                     contentPadding: new EdgeInsets.symmetric(
                         vertical: 12.0, horizontal: 10.0),
                     prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),),
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 onTap: () async {
-               semesterSnapshot= await showSearch(
+                  semesterSnapshot = await showSearch(
                       context: context, delegate: semesterSerach());
                   if (semesterSnapshot != null)
                     _sem.text = semesterSnapshot["name"] ?? "";
@@ -133,9 +164,14 @@ class home extends StatelessWidget {
                     contentPadding: new EdgeInsets.symmetric(
                         vertical: 12.0, horizontal: 10.0),
                     prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                    ),),
               ),
             ),
             SizedBox(
@@ -357,7 +393,6 @@ class universitySearch extends SearchDelegate<DocumentSnapshot> {
         });
   }
 }
-
 
 class semesterSerach extends SearchDelegate<DocumentSnapshot> {
   @override
