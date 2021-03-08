@@ -33,18 +33,19 @@ class _LoginState extends State<Login> {
         });
       });
     } on FirebaseAuthException catch (e) {
+      _key.currentState.showSnackBar(SnackBar(content: Text(e.message),duration: Duration(seconds: 1),));
       setState(() {
         isLoading = false;
       });
-      print(e.message);
-      // ScaffoldMessenger.of(context)
-      //     .showSnackBar(SnackBar(content: Text(e.message)));
+     
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     
       backgroundColor: Color(0xFFfcf3e8),
       appBar: AppBar(
         title: Text(
@@ -103,26 +104,23 @@ class _LoginState extends State<Login> {
                 height: 30,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.08,
-                padding: const EdgeInsets.all(8.0),
-                child: MaterialButton(
-                  height: 12,
-                  onPressed: isLoading ? () {} : () => login(context),
-                  color: Color(0XFFecb063),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(
-                          backgroundColor: Colors.white,
-                        ))
-                      : Text(
-                          "Login",
-                          style: TextStyle(color: Colors.white, fontSize: 17),
-                        ),
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  padding: const EdgeInsets.all(8.0),
+                  child:isLoading?Center(child:CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                  )):MaterialButton(
+                    height: 12,
+                    onPressed: () => login(context),
+                    color: Color(0XFFecb063),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child:  Text(
+                            "Login",
+                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          ),
+                  ),
                 ),
-              ),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),

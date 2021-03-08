@@ -49,133 +49,150 @@ class home extends StatelessWidget {
               title: Text("Admin"),
               trailing: Icon(Icons.arrow_forward_ios)),
         ),
+        Card(
+                  child: ListTile(
+            title:Text("Logout"),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap:(){
+              FirebaseAuth.instance.signOut();
+            },
+            
+            ),
+        ),
+        
       ]))),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                onTap: () async {
-                  Unisnapshot = await showSearch(
-                      context: context, delegate: universitySearch());
-                  if (Unisnapshot != null)
-                    _university.text = Unisnapshot["name"] ?? "";
-                },
-                readOnly: true,
-                controller: _university,
-                decoration: InputDecoration(
-                    labelText: "University",
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 10.0),
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                onTap: () async {
-                  Subsnapshot = await showSearch(
-                      context: context, delegate: subjectSerach());
-                  if (Subsnapshot != null)
-                    _subject.text = Subsnapshot["name"] ?? "";
-                },
-                controller: _subject,
-                readOnly: true,
-                decoration: InputDecoration(
-                    labelText: "Subject",
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 10.0),
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
-              ),
-            ),
-             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                onTap: () async {
-                  CourseSnapShot = await showSearch(
-                      context: context, delegate: courseSerach());
-                  if (CourseSnapShot != null)
-                    _course.text = CourseSnapShot["name"] ?? "";
-                },
-                controller: _course,
-                readOnly: true,
-                decoration: InputDecoration(
-                    labelText: "Course",
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 10.0),
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
-              ),
-            ),
-             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                onTap: () async {
-               semesterSnapshot= await showSearch(
-                      context: context, delegate: semesterSerach());
-                  if (semesterSnapshot != null)
-                    _sem.text = semesterSnapshot["name"] ?? "";
-                },
-                controller: _sem,
-                readOnly: true,
-                decoration: InputDecoration(
-                    labelText: "Semester",
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 10.0),
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.7,
-              height: MediaQuery.of(context).size.height * 0.1,
-              padding: const EdgeInsets.all(8.0),
-              child: MaterialButton(
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  if (_university.text.isNotEmpty || _subject.text.isNotEmpty) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => addNotes(
-                                  university: Unisnapshot["id"],
-                                  subject: Subsnapshot["id"],
-                                  course: CourseSnapShot["id"],
-                                  semester: semesterSnapshot["id"],
-                                )));
-                  } else {
-                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    //   content: Text("Complete All Fields"),
-                    //   duration: Duration(milliseconds: 500),
-                    // ));
-                  }
-                },
-                color: Color(0XFFecb063),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: Text(
-                  "Next",
-                  style: TextStyle(color: Colors.white),
+        child: SingleChildScrollView(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height-kToolbarHeight,
+                    child: Column(
+                    
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                    onTap: () async {
+                      Unisnapshot = await showSearch(
+                          context: context, delegate: universitySearch());
+                      if (Unisnapshot != null)
+                        _university.text = Unisnapshot["name"] ?? "";
+                    },
+                    readOnly: true,
+                    controller: _university,
+                    decoration: InputDecoration(
+                        labelText: "University",
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 10.0),
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        )),
                 ),
               ),
-            ),
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                    onTap: () async {
+                      Subsnapshot = await showSearch(
+                          context: context, delegate: subjectSerach());
+                      if (Subsnapshot != null)
+                        _subject.text = Subsnapshot["name"] ?? "";
+                    },
+                    controller: _subject,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                        labelText: "Subject",
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 10.0),
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        )),
+                ),
+              ),
+               Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                    onTap: () async {
+                      CourseSnapShot = await showSearch(
+                          context: context, delegate: courseSerach());
+                      if (CourseSnapShot != null)
+                        _course.text = CourseSnapShot["name"] ?? "";
+                    },
+                    controller: _course,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                        labelText: "Course",
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 10.0),
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        )),
+                ),
+              ),
+               Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                    onTap: () async {
+                 semesterSnapshot= await showSearch(
+                          context: context, delegate: semesterSerach());
+                      if (semesterSnapshot != null)
+                        _sem.text = semesterSnapshot["name"] ?? "";
+                    },
+                    controller: _sem,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                        labelText: "Semester",
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 10.0),
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        )),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.7,
+                height: MediaQuery.of(context).size.height * 0.1,
+                padding: const EdgeInsets.all(8.0),
+                child: MaterialButton(
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      if (_university.text.isNotEmpty || _subject.text.isNotEmpty) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => addNotes(
+                                      university: Unisnapshot["id"],
+                                      subject: Subsnapshot["id"],
+                                      course: CourseSnapShot["id"],
+                                      semester: semesterSnapshot["id"],
+                                    )));
+                      } else {
+                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //   content: Text("Complete All Fields"),
+                        //   duration: Duration(milliseconds: 500),
+                        // ));
+                      }
+                    },
+                    color: Color(0XFFecb063),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Text(
+                      "Next",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                ),
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+          ),
+                  ),
         ),
       ),
     );
