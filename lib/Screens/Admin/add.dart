@@ -33,10 +33,10 @@ class add extends StatelessWidget {
               ),
             ),
             SizedBox(
-                height: 10,
-              ),
+              height: 10,
+            ),
             RaisedButton(
-            padding: EdgeInsets.fromLTRB(14, 14, 14, 14),  
+                padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
                 color: Color(0XFFecb063),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
@@ -47,7 +47,7 @@ class add extends StatelessWidget {
                 onPressed: () async {
                   try {
                     await FirebaseFirestore.instance
-                        .collection(label)
+                        .collection("University")
                         .add({
                           "name": textEditingController.text,
                         })

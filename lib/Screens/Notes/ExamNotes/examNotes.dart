@@ -10,24 +10,32 @@ class examNotes extends StatelessWidget {
   final String semId;
   final String courseId;
 
-  const examNotes({Key key, this.uniId, this.subjectId,this.courseId,this.semId}) : super(key: key);
+  const examNotes(
+      {Key key, this.uniId, this.subjectId, this.courseId, this.semId})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    
+    print(uniId);
+    print(semId);
+    print(courseId);
+    print(subjectId);
     return Scaffold(
       backgroundColor: Color(0xFFfcf3e8),
       appBar: AppBar(
-          title: Text(
-        "Add Exam Notes",
-        style: TextStyle(color: Colors.white),
+        title: Text(
+          "Add Exam Notes",
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      iconTheme: IconThemeData(color: Colors.white),),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => addFile(
                     path: "ExamNotes",
                     universityId: uniId,
+                    semesterId: semId,
+                    courseId: courseId,
                     subjectId: subjectId,
                   )));
         },
@@ -54,6 +62,8 @@ class examNotes extends StatelessWidget {
                     .collection("ExamNotes")
                     .where("universityId", isEqualTo: uniId)
                     .where("subjectId", isEqualTo: subjectId)
+                    .where("courseId", isEqualTo: courseId)
+                    .where("semesterId", isEqualTo: semId)
                     .snapshots(),
                 builder: (context, snap) {
                   if (!snap.hasData) {

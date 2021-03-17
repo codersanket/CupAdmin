@@ -9,155 +9,180 @@ class addFile extends StatefulWidget {
   final String universityId;
   final String subjectId;
   final String path;
+  final String courseId;
+  final String semesterId;
 
-  const addFile({Key key, this.universityId, this.subjectId,this.path}) : super(key: key);
+  const addFile(
+      {Key key,
+      this.universityId,
+      this.subjectId,
+      this.path,
+      this.courseId,
+      this.semesterId})
+      : super(key: key);
   @override
   _addFileState createState() => _addFileState();
 }
 
 class _addFileState extends State<addFile> {
   File pdfFile;
-  String path='';
- bool isLoading=false;
+  String path = '';
+  bool isLoading = false;
 
-  selecteFile()async{
-    FilePickerResult result=await FilePicker.platform.pickFiles(
+  selecteFile() async {
+    FilePickerResult result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowMultiple: false,
       allowCompression: true,
-      allowedExtensions: ['pdf'],);
-      if(result!=null){
-        path=result.files.single.path;
-        pdfFile=File(result.files.single.path);
-      }
-      setState(() {
-        
-      });
-    
+      allowedExtensions: ['pdf'],
+    );
+    if (result != null) {
+      path = result.files.single.path;
+      pdfFile = File(result.files.single.path);
+    }
+    setState(() {});
   }
 
-    addToStorage(BuildContext context)async{
-      isLoading=true;
-      if(path.isNotEmpty){
-      Reference ref= FirebaseStorage.instance.ref().child('uploads/${path.split('/').last}}');
-      UploadTask upload= ref.putFile(pdfFile);
-       TaskSnapshot taskSnapshot = await upload.snapshot;
-    taskSnapshot.ref.getDownloadURL().then(
-          (value) {FirebaseFirestore.instance.collection(widget.path).add({
-            "universityId":widget.universityId,
-            "subjectId":widget.subjectId,
-            "file":value,
-            "topic":topic.text.trim()
-          });
+  addToStorage(BuildContext context) async {
+    // print(widget.universityId);
+    // print(widget.semesterId);
+    // print(widget.courseId);
+    // print(widget.subjectId);
 
-          isLoading=false;
-          path='';
-          pdfFile=File('');
-          setState(() {});
-          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("File Uploaded Sucessfully"),));
-          }
-        );
-        }
+    isLoading = true;
+    setState(() {});
+    if (path.isNotEmpty) {
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child('uploads/${path.split('/').last}}');
+      UploadTask upload = ref.putFile(pdfFile);
+      await upload.whenComplete(() {
+        ref.getDownloadURL().then((value) {
+          FirebaseFirestore.instance.collection(widget.path).add({
+            "universityId": widget.universityId,
+            "subjectId": widget.subjectId,
+            "courseId": widget.courseId,
+            "semesterId": widget.semesterId,
+            "file": value,
+            "topic": topic.text.trim()
+          });
+        });
+
+        isLoading = false;
+        path = '';
+        pdfFile = File('');
+        setState(() {});
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("File Uploaded Sucessfully"),
+        ));
+      });
     }
-    TextEditingController topic=TextEditingController();
+  }
+
+  TextEditingController topic = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFfcf3e8),
       appBar: AppBar(
-        title:Text("Upload File",style: TextStyle(color: Colors.white),
+        title: Text(
+          "Upload File",
+          style: TextStyle(color: Colors.white),
         ),
-        iconTheme: IconThemeData(color: Colors.white),),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: Column(
-        children:[ 
+        children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
               controller: topic,
               decoration: InputDecoration(
                 labelText: "Topic",
-                contentPadding: new EdgeInsets.symmetric(
-                      vertical: 12.0, horizontal: 10.0),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
-                  ),
+                contentPadding:
+                    new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(color: Color(0xFFe9a54d)),
+                ),
               ),
-              
             ),
           ),
-            SizedBox(
-                height: 10,
-              ),
-                    Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              controller: topic,
-              decoration: InputDecoration(
-                labelText: "Topic",
-                contentPadding: new EdgeInsets.symmetric(
-                      vertical: 12.0, horizontal: 10.0),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xFFe9a54d)),
-                  ),
-              ),
-              
-            ),
+          SizedBox(
+            height: 10,
           ),
-            SizedBox(
-                height: 10,
-              ),
-          path.length==0?Container():Container(
-            padding: EdgeInsets.all(20),
-            child: Text(path.split('/').last,textAlign: TextAlign.center,)),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: TextField(
+          //     controller: topic,
+          //     decoration: InputDecoration(
+          //       labelText: "Topic",
+          //       contentPadding:
+          //           new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
+          //       enabledBorder: OutlineInputBorder(
+          //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          //         borderSide: BorderSide(color: Color(0xFFe9a54d)),
+          //       ),
+          //       focusedBorder: OutlineInputBorder(
+          //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          //         borderSide: BorderSide(color: Color(0xFFe9a54d)),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          SizedBox(
+            height: 10,
+          ),
+          path.length == 0
+              ? Container()
+              : Container(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    path.split('/').last,
+                    textAlign: TextAlign.center,
+                  )),
           MaterialButton(
-             padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
-            shape: RoundedRectangleBorder(
-              borderRadius:BorderRadius.circular(16)
-            ),
+            padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             color: Color(0XFFecb063),
-          onPressed: (){
-            selecteFile();
-          },
-          child: Text("Select File",style: TextStyle(
-                color:Colors.white,
-                fontSize:14
-              ),),
-        ),
-        SizedBox(height: 150,),
-        Container(
-          height: MediaQuery.of(context).size.height*0.06,
-          width:MediaQuery.of(context).size.width*0.7 ,
-          child: MaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius:BorderRadius.circular(16)
+            onPressed: () {
+              selecteFile();
+            },
+            child: Text(
+              "Select File",
+              style: TextStyle(color: Colors.white, fontSize: 14),
             ),
-            color: Color(0XFFecb063),
-              onPressed: (){
+          ),
+          SizedBox(
+            height: 150,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.06,
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: MaterialButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              color: Color(0XFFecb063),
+              onPressed: () {
                 addToStorage(context);
               },
-              child:isLoading?CircularProgressIndicator(backgroundColor: Colors.white,):Text("Upload File",style: TextStyle(
-                color:Colors.white,
-                fontSize:18
-              ),),
+              child: isLoading
+                  ? CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    )
+                  : Text(
+                      "Upload File",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
             ),
-        ),
-        
-
-        
+          ),
         ],
-
         mainAxisAlignment: MainAxisAlignment.center,
-        
       ),
     );
   }

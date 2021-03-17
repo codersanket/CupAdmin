@@ -1,3 +1,7 @@
+import 'package:cupadmin/Screens/Admin/AddCourse.dart';
+import 'package:cupadmin/Screens/Admin/add.dart';
+import 'package:cupadmin/Screens/Admin/addSemester.dart';
+import 'package:cupadmin/Screens/Admin/addSubject.dart';
 import 'package:cupadmin/Screens/Admin/createUser.dart';
 import 'package:flutter/material.dart';
 import 'package:cupadmin/Screens/Admin/addButtons.dart';
@@ -12,19 +16,31 @@ class AdminHome extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              AddButtons("University", "Add University"),
+              AddButtons("University", "Add University", () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (contex) => add()));
+              }),
               SizedBox(
                 height: 10,
               ),
-              AddButtons("Course", "Add Course"),
+              AddButtons("Course", "Add Course", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (contex) => AddCourse()));
+              }),
               SizedBox(
                 height: 10,
               ),
-              AddButtons("Semester", "Add Semester"),
+              AddButtons("Semester", "Add Semester", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (contex) => addSemester()));
+              }),
               SizedBox(
                 height: 10,
               ),
-              AddButtons("Subjects", "Add Subjects"),
+              AddButtons("Subjects", "Add Subjects", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (contex) => addSubject()));
+              }),
               SizedBox(
                 height: 10,
               ),

@@ -8,8 +8,8 @@ import '../Admin/admin.dart';
 class home extends StatelessWidget {
   TextEditingController _university = TextEditingController();
   TextEditingController _subject = TextEditingController();
-  TextEditingController _sem=TextEditingController();
-  TextEditingController _course=TextEditingController();
+  TextEditingController _sem = TextEditingController();
+  TextEditingController _course = TextEditingController();
   DocumentSnapshot Unisnapshot;
   DocumentSnapshot Subsnapshot;
   DocumentSnapshot CourseSnapShot;
@@ -50,28 +50,25 @@ class home extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios)),
         ),
         Card(
-                  child: ListTile(
-            title:Text("Logout"),
+          child: ListTile(
+            title: Text("Logout"),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap:(){
+            onTap: () {
               FirebaseAuth.instance.signOut();
             },
-            
-            ),
+          ),
         ),
-        
       ]))),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height-kToolbarHeight,
-                    child: Column(
-                    
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
+          child: Container(
+            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
                     onTap: () async {
                       Unisnapshot = await showSearch(
                           context: context, delegate: universitySearch());
@@ -88,35 +85,15 @@ class home extends StatelessWidget {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         )),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                    onTap: () async {
-                      Subsnapshot = await showSearch(
-                          context: context, delegate: subjectSerach());
-                      if (Subsnapshot != null)
-                        _subject.text = Subsnapshot["name"] ?? "";
-                    },
-                    controller: _subject,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        labelText: "Subject",
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 10.0),
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        )),
-                ),
-              ),
-               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
                     onTap: () async {
                       CourseSnapShot = await showSearch(
-                          context: context, delegate: courseSerach());
+                          context: context,
+                          delegate: courseSerach(Unisnapshot.data()["id"]));
                       if (CourseSnapShot != null)
                         _course.text = CourseSnapShot["name"] ?? "";
                     },
@@ -130,14 +107,16 @@ class home extends StatelessWidget {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         )),
+                  ),
                 ),
-              ),
-               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
                     onTap: () async {
-                 semesterSnapshot= await showSearch(
-                          context: context, delegate: semesterSerach());
+                      semesterSnapshot = await showSearch(
+                          context: context,
+                          delegate: semesterSerach(Unisnapshot.data()["id"],
+                              CourseSnapShot.data()["id"]));
                       if (semesterSnapshot != null)
                         _sem.text = semesterSnapshot["name"] ?? "";
                     },
@@ -151,19 +130,45 @@ class home extends StatelessWidget {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         )),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.1,
-                padding: const EdgeInsets.all(8.0),
-                child: MaterialButton(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    onTap: () async {
+                      Subsnapshot = await showSearch(
+                          context: context,
+                          delegate: subjectSerach(
+                              Unisnapshot.data()["id"],
+                              CourseSnapShot.data()["id"],
+                              semesterSnapshot.data()["id"]));
+                      if (Subsnapshot != null)
+                        _subject.text = Subsnapshot["name"] ?? "";
+                    },
+                    controller: _subject,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                        labelText: "Subject",
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 10.0),
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  padding: const EdgeInsets.all(8.0),
+                  child: MaterialButton(
                     onPressed: () {
                       FocusScope.of(context).unfocus();
-                      if (_university.text.isNotEmpty || _subject.text.isNotEmpty) {
+                      if (_university.text.isNotEmpty ||
+                          _subject.text.isNotEmpty) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -187,12 +192,12 @@ class home extends StatelessWidget {
                       "Next",
                       style: TextStyle(color: Colors.white),
                     ),
-                ),
-              ),
-            ],
-            mainAxisAlignment: MainAxisAlignment.center,
-          ),
                   ),
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            ),
+          ),
         ),
       ),
     );
@@ -200,6 +205,11 @@ class home extends StatelessWidget {
 }
 
 class subjectSerach extends SearchDelegate<DocumentSnapshot> {
+  final String university;
+  final String course;
+  final String sem;
+
+  subjectSerach(this.university, this.course, this.sem);
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -225,7 +235,12 @@ class subjectSerach extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("Subjects").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Subjects")
+            .where("uniId", isEqualTo: university)
+            .where("courseId", isEqualTo: course)
+            .where("semId", isEqualTo: sem)
+            .snapshots(),
         builder: (context, snap) {
           List<DocumentSnapshot> list;
           if (!snap.hasData) {
@@ -257,7 +272,12 @@ class subjectSerach extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("Subjects").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Subjects")
+            .where("uniId", isEqualTo: university)
+            .where("courseId", isEqualTo: course)
+            .where("semId", isEqualTo: sem)
+            .snapshots(),
         builder: (context, snap) {
           List<DocumentSnapshot> list;
           if (!snap.hasData) {
@@ -375,8 +395,11 @@ class universitySearch extends SearchDelegate<DocumentSnapshot> {
   }
 }
 
-
 class semesterSerach extends SearchDelegate<DocumentSnapshot> {
+  final String uniId;
+  final String course;
+
+  semesterSerach(this.uniId, this.course);
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -402,7 +425,11 @@ class semesterSerach extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("Semester").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Semester")
+            .where("uniId", isEqualTo: uniId)
+            .where("courseId", isEqualTo: course)
+            .snapshots(),
         builder: (context, snap) {
           List<DocumentSnapshot> list;
           if (!snap.hasData) {
@@ -434,7 +461,11 @@ class semesterSerach extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("Semester").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Semester")
+            .where("uniId", isEqualTo: uniId)
+            .where("courseId", isEqualTo: course)
+            .snapshots(),
         builder: (context, snap) {
           List<DocumentSnapshot> list;
           if (!snap.hasData) {
@@ -465,6 +496,9 @@ class semesterSerach extends SearchDelegate<DocumentSnapshot> {
 }
 
 class courseSerach extends SearchDelegate<DocumentSnapshot> {
+  final String uniId;
+
+  courseSerach(this.uniId);
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -490,7 +524,10 @@ class courseSerach extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("Course").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Course")
+            .where("uniId", isEqualTo: uniId)
+            .snapshots(),
         builder: (context, snap) {
           List<DocumentSnapshot> list;
           if (!snap.hasData) {
@@ -522,7 +559,10 @@ class courseSerach extends SearchDelegate<DocumentSnapshot> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("Course").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Course")
+            .where("uniId", isEqualTo: uniId)
+            .snapshots(),
         builder: (context, snap) {
           List<DocumentSnapshot> list;
           if (!snap.hasData) {

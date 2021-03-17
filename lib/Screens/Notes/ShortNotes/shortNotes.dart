@@ -4,29 +4,33 @@ import 'package:cupadmin/Services/addFile.dart';
 import 'package:flutter/material.dart';
 
 class shortNotes extends StatelessWidget {
- 
   final String uniId;
   final String subjectId;
   final String semId;
   final String courseId;
 
-  const shortNotes({Key key, this.uniId, this.subjectId,this.courseId,this.semId}) : super(key: key);
+  const shortNotes(
+      {Key key, this.uniId, this.subjectId, this.courseId, this.semId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFfcf3e8),
       appBar: AppBar(
-          title: Text(
-        "Add Exam Notes",
-        style: TextStyle(color: Colors.white),
+        title: Text(
+          "Add Exam Notes",
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      iconTheme: IconThemeData(color: Colors.white),),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => addFile(
-                    path: "ShortNoes",
+                    path: "ShortNotes",
+                    semesterId: semId,
+                    courseId: courseId,
                     universityId: uniId,
                     subjectId: subjectId,
                   )));
@@ -54,6 +58,8 @@ class shortNotes extends StatelessWidget {
                     .collection("ShortNotes")
                     .where("universityId", isEqualTo: uniId)
                     .where("subjectId", isEqualTo: subjectId)
+                    .where("courseId", isEqualTo: courseId)
+                    .where("semesterId", isEqualTo: semId)
                     .snapshots(),
                 builder: (context, snap) {
                   if (!snap.hasData) {
@@ -82,8 +88,11 @@ class shortNotes extends StatelessWidget {
                                     padding: EdgeInsets.only(right: 10, top: 5),
                                     alignment: Alignment.topRight,
                                     child: GestureDetector(
-                                      onTap:()=> FirebaseFirestore.instance.collection("ShortNotes").doc(snap.data.docs[i].id).delete(),
-                                          child: Icon(
+                                      onTap: () => FirebaseFirestore.instance
+                                          .collection("ShortNotes")
+                                          .doc(snap.data.docs[i].id)
+                                          .delete(),
+                                      child: Icon(
                                         Icons.delete,
                                         color: Colors.white,
                                       ),
