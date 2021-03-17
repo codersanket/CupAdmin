@@ -1,9 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cupadmin/Screens/Notes/ExamNotes/examNotes.dart';
-import 'package:cupadmin/Screens/Notes/ShortNotes/shortNotes.dart';
-import 'package:cupadmin/Screens/Notes/addNotes.dart';
-import 'package:cupadmin/Screens/addUniversity.dart';
-import 'package:cupadmin/Screens/pdfViewer.dart';
 import 'package:cupadmin/Screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
